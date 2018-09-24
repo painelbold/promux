@@ -4,4 +4,14 @@ page-login {
     margin: 20px auto;
     width: 50%;
   }
+
+  .login-box{
+    background: rgba($color: #6D0D6E, $alpha: 0.12);
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  ion-item{
+    background: transparent !important;
+  }
 }
