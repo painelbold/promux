@@ -1,12 +1,12 @@
-import { RegisterPageModule } from './../pages/account/register/register.module';
-import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { BrowserModule } from '@angular/platform-browser';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
-import { MyApp } from './app.component';
 import { LoginPageModule } from '../pages/account/login/login.module';
+import { RegisterPageModule } from './../pages/account/register/register.module';
+import { MyApp } from './app.component';
 
 @NgModule({
   declarations: [
