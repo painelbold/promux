@@ -14,4 +14,17 @@ page-login {
   ion-item{
     background: transparent !important;
   }
+
+  .item-input .label-md{
+    color: color($colors, promux-color, base) !important;
+  }
+
+  .item.item-md .checkbox-md {
+    margin: 9px 18px 9px 0px
+  }
+
+  .item-inner {
+    border-bottom-color: color($colors, promux-color, base) !important;
+    box-shadow: none !important;
+  }
 }
