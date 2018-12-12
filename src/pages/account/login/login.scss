@@ -11,8 +11,10 @@ page-login {
     border-radius: 10px;
   }
 
-  ion-item{
+  .item.item-md,
+  .item-ios{
     background: transparent !important;
+    padding-right: 20px;
   }
 
   .item-input .label-md{
@@ -20,7 +22,7 @@ page-login {
   }
 
   .item.item-md .checkbox-md {
-    margin: 9px 18px 9px 0px
+    margin: 9px 18px 9px 0px;
   }
 
   .item-inner {
