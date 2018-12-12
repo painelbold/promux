@@ -1,12 +1,60 @@
 <ion-header>
-
   <ion-navbar>
-    <ion-title>Register</ion-title>
+    <img src="assets/imgs/logo_promux.png" class="logo-promux" />
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
-
+  <div>
+    <h3 color="promux-color">Registrar</h3>
+    <ion-item>
+      <ion-label
+      floating
+      color="promux-color">Nome</ion-label>
+      <ion-input
+      type="password"
+      name="password"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label
+      floating
+      color="promux-color">Data de Nascimento</ion-label>
+      <ion-datetime
+      displayFormat="MM/DD/YYYY"
+      [max]="minDate"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label
+      color="promux-color"
+      floating>E-mail</ion-label>
+      <ion-input
+      type="email"
+      name="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label
+      floating
+      color="promux-color">Senha</ion-label>
+      <ion-input
+      type="password"
+      name="password"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label
+      floating
+      color="promux-color">Confirmar Senha</ion-label>
+      <ion-input
+      type="password"
+      name="confirmPassword"></ion-input>
+    </ion-item>
+    <button
+      ion-button
+      class="submit-btn button-round-md"
+      block
+      color="promux-color"
+      type="submit"
+    >
+      Registrar
+    </button>
+  </div>
 </ion-content>

@@ -1,3 +1,25 @@
 page-register {
+      h3{
+        margin-bottom: 0px;
+        color: color($colors, promux-color, base);
+        margin-top: 10px;
+      }
 
+      .item.item-md{
+        background: transparent;
+        padding-right: 20px;
+      }
+
+      .item-input .label-md{
+        color: color($colors, promux-color, base) !important;
+      }
+
+      .item-inner {
+        border-bottom-color: color($colors, promux-color, base) !important;
+        box-shadow: none !important;
+      }
+
+      .submit-btn{
+        margin-top: 20px;
+      }
 }
