@@ -1,3 +1,10 @@
 page-my-profile {
+  h3{
+    color: color($colors, promux-color, base);
+    margin: 0px;
+  }
 
+  .submit-btn{
+    margin-top: 20px;
+  }
 }
