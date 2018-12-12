@@ -1,1 +1,51 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu id="sideMenu" [content]="content" drag-content="false">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>
+            <img src="assets/imgs/logo_promux.png" class="logo-promux"/>
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="menu-items">
+      <ion-list>
+        <ion-item
+        class="menu-items"
+        no-lines>
+          <p class="hello-user">Olá,
+            <!-- {{loggedUser.fullName.split(' ')[0]}} -->
+            Usuário!</p>
+        </ion-item>
+        <hr>
+        <button
+        class="menu-items"
+        menuClose ion-item *ngFor="let p of pages"
+        (click)="openPage(p)"
+        no-lines
+        icon-start
+        >
+        <ion-icon
+        name={{p.icon}}
+        class="item-title"></ion-icon>
+          <span class="item-title">{{p.title}}</span>
+        </button>
+        <button
+        class="menu-items"
+        menuClose
+        ion-item
+        (click)="logout()"
+        no-lines
+        icon-start
+        >
+        <ion-icon
+        name="log-out"
+        class="item-title"></ion-icon>
+        <span class="item-title">Logout</span>
+      </button>
+      </ion-list>
+    </ion-content>
+
+  </ion-menu>
+
+  <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+  <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
