@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { RegisterPage } from '../register/register';
+import { HomePage } from "../../home/home";
 
 @IonicPage()
 @Component({
@@ -23,7 +24,7 @@ export class LoginPage {
   }
 
   createAccount() {
-    this.navCtrl.setRoot(RegisterPage);
+    this.navCtrl.push(RegisterPage);
   }
 
   resetPassword() {}
@@ -38,5 +39,6 @@ export class LoginPage {
 
   login(){
     console.log(this.loginForm.value);
+    this.navCtrl.setRoot(HomePage);
   }
 }
