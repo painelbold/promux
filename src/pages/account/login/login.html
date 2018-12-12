@@ -4,6 +4,7 @@
   </div>
   <div
   class="login-box">
+  <form [formGroup]="loginForm" (ngSubmit)="login()" >
     <ion-list>
       <ion-item>
         <ion-label
@@ -11,7 +12,8 @@
         floating>E-mail</ion-label>
         <ion-input
         type="email"
-        name="email"></ion-input>
+        name="email"
+        formControlName="email"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label
@@ -19,14 +21,16 @@
         color="promux-color">Senha</ion-label>
         <ion-input
         type="password"
-        name="password"></ion-input>
+        name="password"
+        formControlName="password"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label
         color="promux-color">Continuar conectado</ion-label>
         <ion-checkbox
         color="promux-color"
-        name="stayConnected"></ion-checkbox>
+        name="stayConnected"
+        formControlName="stayConnected"></ion-checkbox>
       </ion-item>
     </ion-list>
     <button
@@ -35,6 +39,7 @@
     block
     color="promux-color"
     type="submit">Login</button>
+  </form>
     <button
     ion-button
     class="register-btn"
@@ -52,4 +57,4 @@
     type="button"
     (click)="resetPassword()">Esqueci minha senha</button>
   </div>
-  </ion-content>
+</ion-content>
