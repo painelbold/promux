@@ -40,21 +40,51 @@
     color="promux-color"
     type="submit">Login</button>
   </form>
-    <button
+</div>
+
+<div class="sign-in-social">
+  <button
     ion-button
-    class="register-btn"
     block
-    color="promux-color"
-    clear
-    type="button"
-    (click)="createAccount()">Criar nova conta</button>
-    <button
-    ion-button
-    class="reset-password-btn"
-    block
-    clear
+    icon-left
     color="promux-color"
     type="button"
-    (click)="resetPassword()">Esqueci minha senha</button>
-  </div>
+    (click)="doGoogleLogin()"
+    clear
+    small>
+    <ion-icon name="logo-google"></ion-icon>Continuar com Google</button>
+
+  <button
+    ion-button
+    block
+    icon-left
+    class="facebook-btn"
+    color="promux-color"
+    type="button"
+    (click)="doFacebookLogin()"
+    small>
+    <ion-icon name="logo-facebook"></ion-icon>Continuar com Facebook</button>
+</div>
+
+<div class="bottom-btn">
+  <ion-row>
+    <ion-col col-6>
+      <button
+      ion-button
+      block
+      clear
+      color="promux-color"
+      type="button"
+      (click)="resetPassword()">Esqueci minha senha</button>
+    </ion-col>
+    <ion-col col-6>
+      <button
+      ion-button
+      block
+      color="promux-color"
+      type="button"
+      (click)="createAccount()">Criar nova conta</button>
+    </ion-col>
+  </ion-row>
+</div>
 </ion-content>
