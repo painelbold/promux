@@ -1,17 +1,45 @@
-import { HttpClient } from '@angular/common/http';
+import 'rxjs/Rx';
+
 import { Injectable } from '@angular/core';
-
-/*
-  Generated class for the UserDataProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
+import { AngularFireDatabase } from 'angularfire2/database';
+import { User } from '../../model/user';
+import { AuthServiceProvider } from '../auth-service/auth-service';
 @Injectable()
 export class UserDataProvider {
+  private PATH='user-data/';
 
-  constructor(public http: HttpClient) {
-    console.log('Hello UserDataProvider Provider');
+  constructor(private db: AngularFireDatabase,
+              private authService: AuthServiceProvider) {
+
+    }
+
+  saveUserData(user: User){
+    return new Promise((resolve, reject) => {
+      if(user.key){
+        this.db.list(this.PATH)
+        .update(user.key, user)
+        .then(() => resolve())
+        .catch((e) => reject(e))
+      }
+      else{
+        this.db.database
+        .ref(this.PATH + this.authService.getLoggedUser().uid)
+        .set({ fullName: user.fullName || '',
+               email: user.email || '',
+               dateOfBirth: user.dateOfBirth || '',
+               completeProfile: user.completeProfile || false,
+               key: this.authService.getLoggedUser().uid
+             })
+      }
+    });
+  }
+
+  getUserData(){
+    return this.db.object(this.PATH + this.authService.getLoggedUser().uid)
+    .snapshotChanges()
+    .map(u =>{
+      return { key: u.key, ...u.payload.val()};
+    });
   }
 
 }
