@@ -37,7 +37,7 @@ export class LoginPage {
     });
   }
 
-  login(){
+  doLogin(){
     console.log(this.loginForm.value);
     this.navCtrl.setRoot(HomePage);
   }
