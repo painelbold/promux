@@ -66,10 +66,6 @@ export class LoginPage {
 
   }
 
-  doGoogleLogin(){
-
-  }
-
   createLoading(msg: string, duration: number) {
     this.loading = this.loadingCtrl.create({
       content: msg,
