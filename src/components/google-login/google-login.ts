@@ -2,8 +2,12 @@ import { Component } from "@angular/core";
 import { GooglePlus } from "@ionic-native/google-plus";
 import { AngularFireAuth } from "angularfire2/auth";
 import * as firebase from "firebase/app";
-import { Platform } from "ionic-angular";
+import { NavController, Platform, Loading, LoadingController, ToastController } from "ionic-angular";
 import { Observable } from "rxjs";
+
+import { User } from "../../model/user";
+import { RegisterComplementPage } from "../../pages/account/register-complement/register-complement";
+import { UserDataProvider } from "../../providers/user-data/user-data";
 
 /**
  * Generated class for the GoogleLoginComponent component.
@@ -17,21 +21,25 @@ import { Observable } from "rxjs";
 })
 export class GoogleLoginComponent {
   user: Observable<firebase.User>;
+  loading: Loading;
 
   constructor(
     private afAuth: AngularFireAuth,
     private gPlus: GooglePlus,
-    private platform: Platform
+    private platform: Platform,
+    private udProvider: UserDataProvider,
+    private nav: NavController,
+    private loadingCtrl: LoadingController,
+    private toastCtrl: ToastController
   ) {
     this.user = this.afAuth.authState;
   }
 
   googleLogin() {
-    if (this.platform.is("cordova")) {
-      this.nativeGoogleLogin();
-    } else {
-      this.webGoogleLogin();
-    }
+    this.createLoading("Entrando na conta...", 10000);
+
+    if (this.platform.is("cordova")) this.nativeGoogleLogin();
+    else this.webGoogleLogin();
   }
 
   async nativeGoogleLogin() {
@@ -43,10 +51,16 @@ export class GoogleLoginComponent {
         scopes: "profile email"
       });
 
-      return await this.afAuth.auth.signInWithCredential(
-        firebase.auth.GoogleAuthProvider.credential(gPlusUser.idToken)
-      );
+      return await this.afAuth.auth
+        .signInWithCredential(
+          firebase.auth.GoogleAuthProvider.credential(gPlusUser.idToken)
+        )
+        .then(res => {
+          this.loading.dismiss();
+          this.checkUser(res);
+        });
     } catch (err) {
+      this.createToast("Erro ao entrar na conta.", 2000);
       console.log(err);
     }
   }
@@ -54,16 +68,52 @@ export class GoogleLoginComponent {
   async webGoogleLogin(): Promise<void> {
     try {
       const provider = new firebase.auth.GoogleAuthProvider();
-      const credential = await this.afAuth.auth.signInWithPopup(provider);
+      const credential = await this.afAuth.auth
+        .signInWithPopup(provider)
+        .then(res => {
+          this.loading.dismiss();
+          this.checkUser(res);
+        });
     } catch (err) {
+      this.createToast("Erro ao entrar na conta.", 2000);
       console.log(err);
     }
   }
 
-  signOut(){
+  signOut() {
     this.afAuth.auth.signOut();
-    if(this.platform.is('cordova')){
+    if (this.platform.is("cordova")) {
       this.gPlus.logout();
     }
+  }
+
+  async checkUser(user: any) {
+    const ud = this.udProvider.getUserData().subscribe(u => {
+      ud.unsubscribe();
+
+      if (!u.key) {
+        this.nav.setRoot(RegisterComplementPage, {
+          user: user.user
+        });
+      }
+    });
+  }
+
+  createLoading(msg: string, duration: number) {
+    this.loading = this.loadingCtrl.create({
+      content: msg,
+      duration: duration
+    });
+    this.loading.present();
+  }
+
+  createToast(msg: string, duration: number) {
+    this.toastCtrl
+      .create({
+        message: msg,
+        duration: duration,
+        position: "bottom"
+      })
+      .present();
   }
 }
