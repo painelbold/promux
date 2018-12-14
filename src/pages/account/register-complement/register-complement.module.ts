@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { RegisterComplementPage } from './register-complement';
+import { ComponentsModule } from '../../../components/components.module';
 
 @NgModule({
   declarations: [
@@ -8,6 +9,7 @@ import { RegisterComplementPage } from './register-complement';
   ],
   imports: [
     IonicPageModule.forChild(RegisterComplementPage),
+    ComponentsModule
   ],
 })
 export class RegisterComplementPageModule {}

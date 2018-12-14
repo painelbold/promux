@@ -1,18 +1,101 @@
-<!--
-  Generated template for the RegisterComplementPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>RegisterComplement</ion-title>
+    <ion-title>
+      <img src="assets/imgs/logo_promux.png" class="logo-promux" />
+    </ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
-
+  <h5>Complete o seu registro</h5>
+  <ion-item>
+      <ion-label color="promux-color">Eu sou</ion-label>
+      <ion-select name="userType" [(ngModel)]="userType">
+        <ion-option value="0">Pessoa Física</ion-option>
+        <ion-option value="1">Empresa</ion-option>
+      </ion-select>
+    </ion-item>
+    <div *ngIf="userType == 0; else: registerCompany">
+      <form
+        [formGroup]="registerUserForm"
+        (ngSubmit)="doRegisterUser(registerUserForm)">
+        <ion-item>
+          <ion-label floating color="promux-color">Nome</ion-label>
+          <ion-input
+            type="name"
+            name="name"
+            formControlName="fullName"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="promux-color" floating>E-mail</ion-label>
+          <ion-input
+          type="email"
+          name="email"
+          formControlName="email"
+          readonly
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating color="promux-color"
+            >Data de Nascimento</ion-label
+          >
+          <ion-datetime
+            displayFormat="DD/MM/YYYY"
+            [max]="maxDate"
+            formControlName="dateOfBirth"
+          ></ion-datetime>
+        </ion-item>
+        <button
+        ion-button
+        class="submit-btn button-round-md"
+          block
+          color="promux-color"
+          type="submit"
+        >
+          Continuar
+        </button>
+      </form>
+    </div>
+    <ng-template #registerCompany>
+      <form
+        [formGroup]="registerCompanyForm"
+        (ngSubmit)="doRegisterUser(registerCompanyForm)"
+      >
+        <ion-item>
+          <ion-label floating color="promux-color">Nome da Empresa</ion-label>
+          <ion-input
+            type="name"
+            name="name"
+            formControlName="fullName"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="promux-color" floating>E-mail</ion-label>
+          <ion-input
+            type="email"
+            name="email"
+            formControlName="email"
+            readonly
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating color="promux-color">CNPJ</ion-label>
+          <ion-input
+            type="number"
+            name="cnpj"
+            formControlName="cnpj"
+          ></ion-input>
+        </ion-item>
+        <button
+          ion-button
+          class="submit-btn button-round-md"
+          block
+          color="promux-color"
+          type="submit"
+        >
+          Continuar
+        </button>
+      </form>
+    </ng-template>
 </ion-content>
