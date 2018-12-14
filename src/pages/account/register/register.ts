@@ -28,6 +28,7 @@ import { HomePage } from "../../home/home";
 export class RegisterPage {
   registerForm: FormGroup;
   maxDate: any;
+  userType: any;
   loading: Loading;
 
   constructor(
@@ -39,6 +40,7 @@ export class RegisterPage {
     private udProvider: UserDataProvider,
     private asProvider: AuthServiceProvider
   ) {
+    this.userType = 1;
     this.validateMinDate();
     this.createForm();
   }
@@ -153,5 +155,10 @@ export class RegisterPage {
         console.log("Erro ao registrar usuário: " + errorCode);
         break;
     }
+  }
+
+  teste(){
+      console.log(this.userType);
+      console.log(this.userType == 1);
   }
 }
