@@ -18,7 +18,6 @@ export class User implements IUser {
     this.fullName = fullName;
     this.email = email;
     this.dateOfBirth = dateOfBirth;
-    this.completeProfile = false;
     this.type = UserType.PessoaFisica;
   }
 }
