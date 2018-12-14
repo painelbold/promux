@@ -9,75 +9,123 @@
     <h3 color="promux-color">Registrar</h3>
     <ion-item>
       <ion-label color="promux-color">Eu sou</ion-label>
-      <ion-select
-      name="userType"
-      [(ngModel)]="userType"
-      [ngModelOptions]="{standalone: true}"
-      (ionChange)="teste()">
-        <ion-option value="1">Pessoa Física</ion-option>
-        <ion-option value="2">Empresa</ion-option>
+      <ion-select name="userType" [(ngModel)]="userType">
+        <ion-option value="0">Pessoa Física</ion-option>
+        <ion-option value="1">Empresa</ion-option>
       </ion-select>
     </ion-item>
-    <div *ngIf="userType == 1; else registerCompany">
-      <form [formGroup]="registerForm" (ngSubmit)="doRegister()">
+    <div *ngIf="userType == 0; else: registerCompany">
+      <form
+        [formGroup]="registerUserForm"
+        (ngSubmit)="doRegisterUser(registerUserForm)">
         <ion-item>
-          <ion-label
-          floating
-          color="promux-color">Nome</ion-label>
+          <ion-label floating color="promux-color">Nome</ion-label>
           <ion-input
-          type="name"
-          name="name"
-          formControlName="fullName"></ion-input>
+            type="name"
+            name="name"
+            formControlName="fullName"
+          ></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label
-          floating
-          color="promux-color">Data de Nascimento</ion-label>
+          <ion-label floating color="promux-color"
+            >Data de Nascimento</ion-label
+          >
           <ion-datetime
-          displayFormat="DD/MM/YYYY"
-          [max]="maxDate"
-          formControlName="dateOfBirth"></ion-datetime>
+            displayFormat="DD/MM/YYYY"
+            [max]="maxDate"
+            formControlName="dateOfBirth"
+          ></ion-datetime>
         </ion-item>
         <ion-item>
-          <ion-label
-          color="promux-color"
-          floating>E-mail</ion-label>
+          <ion-label color="promux-color" floating>E-mail</ion-label>
           <ion-input
-          type="email"
-          name="email"
-          formControlName="email"></ion-input>
+            type="email"
+            name="email"
+            formControlName="email"
+          ></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label
-          floating
-          color="promux-color">Senha</ion-label>
+          <ion-label floating color="promux-color">Senha</ion-label>
           <ion-input
-          type="password"
-          name="password"
-          formControlName="password"></ion-input>
+            type="password"
+            name="password"
+            formControlName="password"
+          ></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label
-          floating
-          color="promux-color">Confirmar Senha</ion-label>
+          <ion-label floating color="promux-color">Confirmar Senha</ion-label>
           <ion-input
-          type="password"
-          name="confirmPassword"
-          formControlName="confirmPassword"></ion-input>
+            type="password"
+            name="confirmPassword"
+            formControlName="confirmPassword"
+          ></ion-input>
         </ion-item>
         <button
-        ion-button
-        class="submit-btn button-round-md"
-        block
-        color="promux-color"
-        type="submit"
+          ion-button
+          class="submit-btn button-round-md"
+          block
+          color="promux-color"
+          type="submit"
         >
-        Registrar
-      </button>
-    </form>
+          Registrar
+        </button>
+      </form>
     </div>
     <ng-template #registerCompany>
-
+      <form
+        [formGroup]="registerCompanyForm"
+        (ngSubmit)="doRegisterUser(registerCompanyForm)"
+      >
+        <ion-item>
+          <ion-label floating color="promux-color">Nome da Empresa</ion-label>
+          <ion-input
+            type="name"
+            name="name"
+            formControlName="fullName"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating color="promux-color">CNPJ</ion-label>
+          <ion-input
+            type="number"
+            name="cnpj"
+            formControlName="cnpj"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label color="promux-color" floating>E-mail</ion-label>
+          <ion-input
+            type="email"
+            name="email"
+            formControlName="email"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating color="promux-color">Senha</ion-label>
+          <ion-input
+            type="password"
+            name="password"
+            formControlName="password"
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating color="promux-color">Confirmar Senha</ion-label>
+          <ion-input
+            type="password"
+            name="confirmPassword"
+            formControlName="confirmPassword"
+          ></ion-input>
+        </ion-item>
+        <button
+          ion-button
+          class="submit-btn button-round-md"
+          block
+          color="promux-color"
+          type="submit"
+        >
+          Registrar
+        </button>
+      </form>
     </ng-template>
   </div>
 </ion-content>

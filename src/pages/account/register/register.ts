@@ -1,24 +1,19 @@
 import { Component } from "@angular/core";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import {
   IonicPage,
+  Loading,
+  LoadingController,
   NavController,
   NavParams,
-  LoadingController,
-  ToastController,
-  Loading
+  ToastController
 } from "ionic-angular";
-import { FormGroup, FormBuilder } from "@angular/forms";
-import { User } from "../../../model/user";
-import { UserDataProvider } from "../../../providers/user-data/user-data";
-import { AuthServiceProvider } from "../../../providers/auth-service/auth-service";
-import { HomePage } from "../../home/home";
 
-/**
- * Generated class for the RegisterPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { User } from "../../../model/user";
+import { AuthServiceProvider } from "../../../providers/auth-service/auth-service";
+import { UserDataProvider } from "../../../providers/user-data/user-data";
+import { UserType, IUser } from "../../../model/IUser";
+import { Company } from "../../../model/company";
 
 @IonicPage()
 @Component({
@@ -26,7 +21,8 @@ import { HomePage } from "../../home/home";
   templateUrl: "register.html"
 })
 export class RegisterPage {
-  registerForm: FormGroup;
+  registerUserForm: FormGroup;
+  registerCompanyForm: FormGroup;
   maxDate: any;
   userType: any;
   loading: Loading;
@@ -40,52 +36,68 @@ export class RegisterPage {
     private udProvider: UserDataProvider,
     private asProvider: AuthServiceProvider
   ) {
-    this.userType = 1;
+    this.userType = UserType.PessoaFisica;
     this.validateMinDate();
-    this.createForm();
+    this.createForms();
   }
 
   ionViewDidLoad() {}
 
-  doRegister() {
-    if (this.validatePassword()) {
-      this.createLoading("Registrando usuário...", 10000);
-      let formValues = this.registerForm.value;
+  doRegisterUser(form: FormGroup) {
+    let formValues = form.value;
 
-      this.registerUser(formValues);
-    } else {
-      this.createToast("As senhas digitadas são diferentes.", 2000);
-    }
+    if (this.validatePassword(formValues)) this.registerUser(formValues);
+    else this.createToast("As senhas digitadas são diferentes.", 2000);
   }
 
-  createForm() {
-    this.registerForm = this.formBuilder.group({
+  createForms() {
+    this.registerUserForm = this.formBuilder.group({
       fullName: [""],
       dateOfBirth: [""],
       email: [""],
       password: [""],
       confirmPassword: [""]
     });
+
+    this.registerCompanyForm = this.formBuilder.group({
+      fullName: [""],
+      email: [""],
+      cnpj: [""],
+      password: [""],
+      confirmPassword: [""]
+    });
   }
 
-  validatePassword() {
-    return (
-      this.registerForm.value.password ===
-      this.registerForm.value.confirmPassword
-    );
+  validatePassword(formValue: any) {
+    return formValue.password === formValue.confirmPassword;
   }
 
   registerUser(formValues: any) {
-    let user: User = new User(
-      formValues.fullName,
-      formValues.email,
-      formValues.dateOfBirth
-    );
+    let user: any;
+
+    if (this.userType == 0) {
+      this.createLoading("Registrando usuário...", 10000);
+
+      user = new User(
+        formValues.fullName,
+        formValues.email,
+        formValues.dateOfBirth
+      );
+    } else if (this.userType == 1) {
+      this.createLoading("Registrando empresa...", 10000);
+
+      user = new Company(
+        formValues.fullName,
+        formValues.email,
+        formValues.cnpj
+      );
+    }
 
     this.asProvider
       .doRegister(formValues)
       .then((result: any) => {
         this.loading.dismiss();
+        console.log(result);
 
         return this.saveUserData(user);
       })
@@ -93,7 +105,6 @@ export class RegisterPage {
         this.loading.dismiss();
 
         this.createToast("Usuário criado com sucesso!", 2000);
-        this.navCtrl.setRoot(HomePage);
       })
       .catch(error => {
         this.loading.dismiss();
@@ -133,7 +144,6 @@ export class RegisterPage {
       today.getMonth(),
       today.getDate()
     ).toISOString();
-    console.log(this.maxDate);
   }
 
   getErrorMsg(errorCode: any) {
@@ -155,10 +165,5 @@ export class RegisterPage {
         console.log("Erro ao registrar usuário: " + errorCode);
         break;
     }
-  }
-
-  teste(){
-      console.log(this.userType);
-      console.log(this.userType == 1);
   }
 }
