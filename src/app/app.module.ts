@@ -1,4 +1,3 @@
-import { BrMaskerModule } from 'brmasker-ionic-3';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { GooglePlus } from '@ionic-native/google-plus';
@@ -7,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { BrMaskerModule } from 'brmasker-ionic-3';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { AboutPageModule } from '../pages/about/about.module';
@@ -16,10 +16,11 @@ import { HomePageModule } from '../pages/home/home.module';
 import { PrivacyPageModule } from '../pages/privacy/privacy.module';
 import { TermsOfServicePageModule } from '../pages/terms-of-service/terms-of-service.module';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
+import { CompanyProvider } from '../providers/company/company';
 import { UserDataProvider } from '../providers/user-data/user-data';
 import { RegisterPageModule } from './../pages/account/register/register.module';
 import { MyApp } from './app.component';
-import { CompanyProvider } from '../providers/company/company';
+import { RegisterComplementPageModule } from '../pages/account/register-complement/register-complement.module';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAUavNtrtqX_wUmwIl6UKXJrSZFbzn2Ceg",
@@ -31,9 +32,7 @@ export const firebaseConfig = {
 };
 
 @NgModule({
-  declarations: [
-    MyApp,
-  ],
+  declarations: [MyApp],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
@@ -47,20 +46,19 @@ export const firebaseConfig = {
     PrivacyPageModule,
     HomePageModule,
     MyProfilePageModule,
+    RegisterComplementPageModule,
     BrMaskerModule
   ],
   bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp,
-  ],
+  entryComponents: [MyApp],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     UserDataProvider,
     AuthServiceProvider,
     GooglePlus,
-    CompanyProvider,
+    CompanyProvider
   ]
 })
 export class AppModule {}
