@@ -12,15 +12,14 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { AboutPageModule } from '../pages/about/about.module';
 import { LoginPageModule } from '../pages/account/login/login.module';
 import { MyProfilePageModule } from '../pages/account/my-profile/my-profile.module';
+import { RegisterComplementPageModule } from '../pages/account/register-complement/register-complement.module';
 import { HomePageModule } from '../pages/home/home.module';
 import { PrivacyPageModule } from '../pages/privacy/privacy.module';
 import { TermsOfServicePageModule } from '../pages/terms-of-service/terms-of-service.module';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
-import { CompanyProvider } from '../providers/company/company';
 import { UserDataProvider } from '../providers/user-data/user-data';
 import { RegisterPageModule } from './../pages/account/register/register.module';
 import { MyApp } from './app.component';
-import { RegisterComplementPageModule } from '../pages/account/register-complement/register-complement.module';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAUavNtrtqX_wUmwIl6UKXJrSZFbzn2Ceg",
@@ -58,7 +57,6 @@ export const firebaseConfig = {
     UserDataProvider,
     AuthServiceProvider,
     GooglePlus,
-    CompanyProvider
   ]
 })
 export class AppModule {}
