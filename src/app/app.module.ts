@@ -1,8 +1,12 @@
+import { BrMaskerModule } from 'brmasker-ionic-3';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { GooglePlus } from '@ionic-native/google-plus';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { AboutPageModule } from '../pages/about/about.module';
@@ -15,8 +19,7 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { UserDataProvider } from '../providers/user-data/user-data';
 import { RegisterPageModule } from './../pages/account/register/register.module';
 import { MyApp } from './app.component';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { CompanyProvider } from '../providers/company/company';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAUavNtrtqX_wUmwIl6UKXJrSZFbzn2Ceg",
@@ -43,7 +46,8 @@ export const firebaseConfig = {
     TermsOfServicePageModule,
     PrivacyPageModule,
     HomePageModule,
-    MyProfilePageModule
+    MyProfilePageModule,
+    BrMaskerModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -54,7 +58,9 @@ export const firebaseConfig = {
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserDataProvider,
-    AuthServiceProvider
+    AuthServiceProvider,
+    GooglePlus,
+    CompanyProvider,
   ]
 })
 export class AppModule {}
