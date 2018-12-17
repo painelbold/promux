@@ -9,98 +9,162 @@
 
 <ion-content padding>
   <div>
-    <h3>Meu Perfil</h3>
+    <h5>Meu Perfil</h5>
 
-    <ion-item>
-      <ion-label
-      floating
-      color="promux-color">Nome</ion-label>
-      <ion-input
-      type="password"
-      name="password"></ion-input>
-    </ion-item>
+    <div *ngIf="userType == 0 && userForm; else companyProfile">
+      <form
+      [formGroup]="userForm"
+      (ngSubmit)="saveData(userForm)">
+      <ion-item>
+        <ion-label
+        floating
+        color="promux-color">Nome</ion-label>
+        <ion-input
+        type="text"
+        name="fullName"
+        formControlName="fullName"></ion-input>
+      </ion-item>
 
-    <ion-item>
-      <ion-label
-      floating
-      color="promux-color">Data de Nascimento</ion-label>
-      <ion-datetime
-      displayFormat="MM/DD/YYYY"
-      [max]="minDate"></ion-datetime>
-    </ion-item>
+      <ion-item>
+        <ion-label
+        floating
+        color="promux-color">Data de Nascimento</ion-label>
+        <ion-datetime
+        displayFormat="MM/DD/YYYY"
+        formControlName="dateOfBirth"
+        [max]="maxDate"></ion-datetime>
+      </ion-item>
 
-    <ion-item>
-      <ion-label
-      floating
-      color="promux-color">Gênero</ion-label>
-      <ion-select
-      [(ngModel)]="gender">
-        <ion-option value="f">Female</ion-option>
-        <ion-option value="m">Male</ion-option>
-      </ion-select>
-    </ion-item>
+      <ion-item>
+        <ion-label
+        floating
+        color="promux-color">Gênero</ion-label>
+        <ion-select
+        formControlName="gender">
+          <ion-option value="f">Feminino</ion-option>
+          <ion-option value="m">Masculino</ion-option>
+        </ion-select>
+      </ion-item>
 
-    <ion-row>
-      <ion-col col-6>
+      <ion-row>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label
+            color="promux-color" floating>Altura</ion-label>
+            <ion-input
+            type="number"
+            name="height"
+            formControlName="height">
+            </ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label
+            floating
+            color="promux-color">Peso</ion-label>
+            <ion-input
+            type="number"
+            name="weight"
+            formControlName="weight"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+
+      <ion-item>
+        <ion-label
+        floating
+        color="promux-color">Cor da Pele</ion-label>
+        <ion-select
+        formControlName="skinColor">
+          <ion-option value="a">Asiática</ion-option>
+          <ion-option value="b">Branca</ion-option>
+          <ion-option value="i">Indígena</ion-option>
+          <ion-option value="n">Negra</ion-option>
+          <ion-option value="p">Parda</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label
+        floating
+        color="promux-color">Cor do Cabelo</ion-label>
+        <ion-select
+        formControlName="hairColor">
+          <ion-option value="lc">Loiro Claro</ion-option>
+          <ion-option value="le">Loiro Escuro</ion-option>
+
+          <ion-option value="m">Male</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label
+        floating
+        color="promux-color">Cor dos Olhos</ion-label>
+        <ion-select
+        formControlName="eyeColor">
+          <ion-option value="f">Female</ion-option>
+          <ion-option value="m">Male</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <button
+        ion-button
+        class="submit-btn button-round-md"
+        block
+        color="promux-color"
+        type="submit"
+      >
+        Confirmar Alterações
+      </button>
+    </form>
+
+    </div>
+
+    <ng-template
+    #companyProfile>
+        <form
+        *ngIf="companyForm"
+        [formGroup]="companyForm"
+        (ngSubmit)="saveData(companyForm)"
+      >
         <ion-item>
-          <ion-label
-          color="promux-color" floating>Altura</ion-label>
-          <ion-input type="number">
-          </ion-input>
-        </ion-item>
-      </ion-col>
-      <ion-col>
-        <ion-item>
-          <ion-label
-          floating
-          color="promux-color">Peso</ion-label>
+          <ion-label floating color="promux-color">Nome da Empresa</ion-label>
           <ion-input
-          type="number"></ion-input>
+            type="name"
+            name="name"
+            formControlName="fullName"
+          ></ion-input>
         </ion-item>
-      </ion-col>
-    </ion-row>
+        <ion-item>
+          <ion-label color="promux-color" floating>CNPJ</ion-label>
+          <ion-input
+            type="number"
+            name="cnpj"
+            formControlName="cnpj"
+            readonly
+          ></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating color="promux-color">Responsável</ion-label>
+          <ion-input
+            type="text"
+            name="responsible"
+            formControlName="responsible"
+          ></ion-input>
+        </ion-item>
+        <button
+          ion-button
+          class="submit-btn button-round-md"
+          block
+          color="promux-color"
+          type="submit"
+        >
+          Continuar
+        </button>
+      </form>
+    </ng-template>
 
-    <ion-item>
-      <ion-label
-      floating
-      color="promux-color">Cor da Pele</ion-label>
-      <ion-select
-      [(ngModel)]="hairColor">
-        <ion-option value="f">Female</ion-option>
-        <ion-option value="m">Male</ion-option>
-      </ion-select>
-    </ion-item>
-
-    <ion-item>
-      <ion-label
-      floating
-      color="promux-color">Cor do Cabelo</ion-label>
-      <ion-select
-      [(ngModel)]="hairColor">
-        <ion-option value="f">Female</ion-option>
-        <ion-option value="m">Male</ion-option>
-      </ion-select>
-    </ion-item>
-
-    <ion-item>
-      <ion-label
-      floating
-      color="promux-color">Cor dos Olhos</ion-label>
-      <ion-select
-      [(ngModel)]="eyeColor">
-        <ion-option value="f">Female</ion-option>
-        <ion-option value="m">Male</ion-option>
-      </ion-select>
-    </ion-item>
-
-    <button
-      ion-button
-      class="submit-btn button-round-md"
-      block
-      color="promux-color"
-      type="submit"
-    >
-      Confirmar Alterações
-    </button>
   </div>
 </ion-content>
