@@ -15,8 +15,6 @@ export class PromuxHeaderComponent {
   text: string;
 
   constructor() {
-    console.log('Hello PromuxHeaderComponent Component');
-    this.text = 'Hello World';
   }
 
 }
