@@ -1,5 +1,6 @@
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { Facebook } from '@ionic-native/facebook';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
@@ -57,6 +58,7 @@ export const firebaseConfig = {
     UserDataProvider,
     AuthServiceProvider,
     GooglePlus,
+    Facebook
   ]
 })
 export class AppModule {}
