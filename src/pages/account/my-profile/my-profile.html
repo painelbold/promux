@@ -108,7 +108,16 @@
           <ion-option value="m">Male</ion-option>
         </ion-select>
       </ion-item>
-
+      <hr>
+      <h6>Preferência de Jobs</h6>
+      <ion-item *ngFor="let p of jobPreferences" no-lines>
+        <ion-label>{{p.name}}</ion-label>
+        <ion-checkbox
+        checked="false"
+        color="promux-color"
+        [(ngModel)]="p.checked"
+        [ngModelOptions]="{standalone: true}"></ion-checkbox>
+      </ion-item>
       <button
         ion-button
         class="submit-btn button-round-md"

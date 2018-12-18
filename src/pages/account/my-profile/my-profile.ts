@@ -1,23 +1,24 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Loading, LoadingController, ToastController } from 'ionic-angular';
-import { UserDataProvider } from '../../../providers/user-data/user-data';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { IUser } from '../../../model/IUser';
-import { User } from '../../../model/user';
-import { Company } from '../../../model/company';
-import { HomePage } from '../../home/home';
+import { Component } from "@angular/core";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import {
+  IonicPage,
+  Loading,
+  LoadingController,
+  NavController,
+  NavParams,
+  ToastController
+} from "ionic-angular";
 
-/**
- * Generated class for the MyProfilePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { Company } from "../../../model/company";
+import { User } from "../../../model/user";
+import { UserDataProvider } from "../../../providers/user-data/user-data";
+import { HomePage } from "../../home/home";
+import { JobType } from "./../../../model/job";
 
 @IonicPage()
 @Component({
-  selector: 'page-my-profile',
-  templateUrl: 'my-profile.html',
+  selector: "page-my-profile",
+  templateUrl: "my-profile.html"
 })
 export class MyProfilePage {
   userType: any;
@@ -27,15 +28,19 @@ export class MyProfilePage {
   companyForm: FormGroup;
   maxDate: any;
   loading: Loading;
+  jobPreferences: Array<{ name: string; value: JobType; checked: boolean }>;
 
-  constructor(public navCtrl: NavController,
+  constructor(
+    public navCtrl: NavController,
     public navParams: NavParams,
     public loadingCtrl: LoadingController,
     public udProvider: UserDataProvider,
     private toastCtrl: ToastController,
-    private formBuilder: FormBuilder) {
-      this.getLoggedUser();
-      this.validateMinDate();
+    private formBuilder: FormBuilder
+  ) {
+    this.getJobTypes();
+    this.getLoggedUser();
+    this.validateMinDate();
   }
 
   validateMinDate() {
@@ -47,30 +52,54 @@ export class MyProfilePage {
     ).toISOString();
   }
 
+  ionViewDidLoad() {}
+
+  getJobTypes(){
+    this.jobPreferences = [
+      { name: "Bandeirada", value: JobType.Bandeirada, checked: false },
+      { name: "Blitz", value: JobType.Blitz , checked: false },
+      { name: "Book Fotográfico", value: JobType.BookFotografico , checked: false },
+      { name: "Carro de Som", value: JobType.CarroDeSom , checked: false },
+      { name: "Degustação", value: JobType.Degustação , checked: false },
+      { name: "Distribuição de Brindes", value: JobType.DistribuicaoDeBrindes , checked: false },
+      { name: "Equipe de Massoterapia", value: JobType.EquipeDeMassoterapia , checked: false },
+      { name: "Figurante para TV", value: JobType.FiguranteParaTV , checked: false },
+      { name: "Gravação de Spot", value: JobType.GravacaoDeSpot , checked: false },
+      { name: "Modelos", value: JobType.Modelos , checked: false },
+      { name: "Receptivo", value: JobType.Receptivo , checked: false },
+      { name: "Repositores", value: JobType.Repositores , checked: false },
+      { name: "Panfletagem", value: JobType.Panfletagem , checked: false },
+      { name: "Vitrine Viva", value: JobType.VitrineViva , checked: false },
+    ]
+  }
+
   getLoggedUser() {
     this.createLoading("Recuperando dados do usuário...", 10000);
 
-    const udSubscribe = this.udProvider.getUserData()
-      .subscribe(user => {
-        this.loading.dismiss();
+    const udSubscribe = this.udProvider.getUserData().subscribe(user => {
+      this.loading.dismiss();
 
-        this.loggedUser = user;
-        this.userType = this.loggedUser.type;
+      this.loggedUser = user;
+      this.userType = this.loggedUser.type;
 
-        this.createForms();
+      this.createForms();
 
-        udSubscribe.unsubscribe();
-      });
+      udSubscribe.unsubscribe();
+    });
   }
 
-  saveData(form: FormGroup){
+  saveData(form: FormGroup) {
     let user: any;
-    let formValues = form.value
+    let formValues = form.value;
 
-    if(this.userType == 0){
+    if (this.userType == 0) {
       this.createLoading("Salvando dados do usuário...", 10000);
 
-      user = new User(formValues.fullName, this.loggedUser.email, formValues.dateOfBirth);
+      user = new User(
+        formValues.fullName,
+        this.loggedUser.email,
+        formValues.dateOfBirth
+      );
       user.key = this.loggedUser.key;
       user.gender = formValues.gender;
       user.height = formValues.height;
@@ -79,11 +108,14 @@ export class MyProfilePage {
       user.eyeColor = formValues.eyeColor;
       user.haircolor = formValues.hairColor;
       user.completeProfile = true;
-    }
-    else if(this.userType == 1){
+    } else if (this.userType == 1) {
       this.createLoading("Salvando dados da empresa...", 10000);
 
-      user = new Company(formValues.fullName, this.loggedUser.email, formValues.cnpj);
+      user = new Company(
+        formValues.fullName,
+        this.loggedUser.email,
+        formValues.cnpj
+      );
       user.key = this.loggedUser.key;
       user.responsible = formValues.responsible;
       user.completeProfile = true;
@@ -91,26 +123,22 @@ export class MyProfilePage {
 
     console.log(user);
 
-    this.udProvider.saveUserData(user)
-    .then(() => {
-      this.loading.dismiss();
+    this.udProvider
+      .saveUserData(user)
+      .then(() => {
+        this.loading.dismiss();
 
-      this.createToast("Dados salvos com sucesso!", 2000);
-      this.navCtrl.setRoot(HomePage);
-    })
-    .catch(err =>{
-      this.loading.dismiss();
+        this.createToast("Dados salvos com sucesso!", 2000);
+        this.navCtrl.setRoot(HomePage);
+      })
+      .catch(err => {
+        this.loading.dismiss();
 
-      this.createToast("Erro ao salvar dados.", 2000)
-    })
-
-
+        this.createToast("Erro ao salvar dados.", 2000);
+      });
   }
 
-  ionViewDidLoad() {
-  }
-
-  createForms(){
+  createForms() {
     this.userForm = this.formBuilder.group({
       fullName: [this.loggedUser.fullName],
       gender: [this.loggedUser.gender],
@@ -120,13 +148,13 @@ export class MyProfilePage {
       eyeColor: [this.loggedUser.eyeColor],
       hairColor: [this.loggedUser.hairColor],
       dateOfBirth: [this.loggedUser.dateOfBirth]
-    })
+    });
 
     this.companyForm = this.formBuilder.group({
       fullName: [this.loggedUser.fullName],
       cnpj: [this.loggedUser.cnpj],
       responsible: [this.loggedUser.responsible]
-    })
+    });
   }
 
   createLoading(msg: string, duration: number) {
