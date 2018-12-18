@@ -62,10 +62,6 @@ export class LoginPage {
     })
   }
 
-  doFacebookLogin(){
-
-  }
-
   createLoading(msg: string, duration: number) {
     this.loading = this.loadingCtrl.create({
       content: msg,
