@@ -3,6 +3,7 @@ export interface IUser{
   email: string;
   key: string;
   type: UserType;
+  dateCreated: any;
 }
 
 export enum UserType{

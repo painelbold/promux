@@ -8,6 +8,7 @@ export class Company implements IUser {
   type: UserType;
   cnpj: string;
   responsible: string;
+  dateCreated: any;
 
   constructor(fullName: string, email: string, cnpj: string){
     this.fullName = fullName;
