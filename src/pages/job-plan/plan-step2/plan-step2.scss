@@ -1,0 +1,18 @@
+page-plan-step2 {
+  .submit-btn{
+    margin-top: 20px;
+  }
+
+  .item-input .label-md{
+    color: color($colors, promux-color, base) !important;
+  }
+
+  .item-inner {
+    border-bottom-color: color($colors, promux-color, base) !important;
+    box-shadow: none !important;
+  }
+
+  h5{
+    color: color($colors, promux-color, base) !important;
+  }
+}

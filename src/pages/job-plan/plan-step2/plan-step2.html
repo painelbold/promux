@@ -1,0 +1,98 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>PlanStep2</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <h5>Novo Job</h5>
+  <form
+  (ngSubmit)="submitStep2()"
+  [formGroup]="step2Form">
+  <ion-item-group>
+    <ion-item>
+      <ion-label floating color="promux-color">Número de Pessoas</ion-label>
+      <ion-input
+      type="number"
+      name="numPeople"
+      formControlName="numPeople">
+      </ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label floating color="promux-color">Gênero</ion-label>
+        <ion-select
+          formControlName="gender">
+          <ion-option
+          *ngFor="let g of genders"
+          value="{{g.value}}">
+          {{g.name}}
+          </ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label floating color="promux-color">Cor da Pele</ion-label>
+        <ion-select
+          formControlName="skinColor">
+          <ion-option
+          *ngFor="let s of skinColors"
+          value="{{s.value}}">
+          {{s.name}}
+          </ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label floating color="promux-color">Cor dos Olhos</ion-label>
+        <ion-select
+          formControlName="eyeColor">
+          <ion-option
+          *ngFor="let e of eyeColors"
+          value="{{e.value}}">
+          {{e.name}}
+          </ion-option>
+        </ion-select>
+      </ion-item>
+    <ion-item>
+      <ion-label floating color="promux-color">Cor do Cabelo</ion-label>
+      <ion-select
+        formControlName="hairColor">
+        <ion-option
+        *ngFor="let h of hairColors"
+        value="{{h.value}}">
+        {{h.name}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-item-group>
+  <div class="buttons">
+    <ion-buttons end>
+        <button
+        ion-button
+        icon-start
+        bottom
+        color="promux-color"
+        class="submit-btn button-round-md"
+        id="anterior"
+        (click)="returnStep1()"
+        outline
+        type="button"
+        >
+        <ion-icon name="arrow-dropleft"></ion-icon>
+        Anterior
+    </button>
+      <button
+      ion-button
+      icon-end
+      type="submit"
+      class="submit-btn button-round-md"
+      id="proximo"
+      color="promux-color"
+      outline
+      [disabled]="!step2Form.valid"> Próximo
+        <ion-icon name="arrow-dropright"></ion-icon>
+      </button>
+      </ion-buttons>
+    </div>
+  </form>
+</ion-content>

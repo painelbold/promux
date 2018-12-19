@@ -1,0 +1,65 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>PlanStep1</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <h5>Novo Job</h5>
+  <form
+  [formGroup]="step1Form"
+  (ngSubmit)="submitStep1()">
+    <ion-item-group inset>
+      <ion-item>
+        <ion-label floating color="promux-color">Título</ion-label>
+        <ion-input
+        type="text"
+        name="title"
+        formControlName="title">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating color="promux-color">Descrição</ion-label>
+        <ion-input
+        type="text"
+        name="description"
+        formControlName="description">
+        </ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating color="promux-color">Tipo</ion-label>
+        <ion-select
+        formControlName="type">
+        <ion-option
+        *ngFor="let j of jobTypes"
+        value="{{j.value}}">
+        {{j.name}}
+        </ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label floating color="promux-color">Localização</ion-label>
+        <ion-input
+        type="text"
+        name="local"
+        formControlName="local">
+        </ion-input>
+      </ion-item>
+      <ion-buttons end>
+          <button
+          ion-button
+          icon-end
+          type="submit"
+          class="submit-btn button-round-md"
+          id="proximo"
+          color="promux-color"
+          outline
+          [disabled]="!step1Form.valid"> Próximo
+              <ion-icon name="arrow-dropright"></ion-icon>
+          </button>
+        </ion-buttons>
+    </ion-item-group>
+  </form>
+</ion-content>

@@ -21,6 +21,12 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { UserDataProvider } from '../providers/user-data/user-data';
 import { RegisterPageModule } from './../pages/account/register/register.module';
 import { MyApp } from './app.component';
+import { JobProvider } from '../providers/job/job';
+import { PlanPageModule } from '../pages/job-plan/plan/plan.module';
+import { PlanStep1PageModule } from '../pages/job-plan/plan-step1/plan-step1.module';
+import { PlanStep2PageModule } from '../pages/job-plan/plan-step2/plan-step2.module';
+import { ValidaCadastroProvider } from '../providers/valida-cadastro/valida-cadastro';
+import { PlanStep3PageModule } from '../pages/job-plan/plan-step3/plan-step3.module';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAUavNtrtqX_wUmwIl6UKXJrSZFbzn2Ceg",
@@ -47,7 +53,11 @@ export const firebaseConfig = {
     HomePageModule,
     MyProfilePageModule,
     RegisterComplementPageModule,
-    BrMaskerModule
+    BrMaskerModule,
+    PlanPageModule,
+    PlanStep1PageModule,
+    PlanStep2PageModule,
+    PlanStep3PageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp],
@@ -58,7 +68,9 @@ export const firebaseConfig = {
     UserDataProvider,
     AuthServiceProvider,
     GooglePlus,
-    Facebook
+    Facebook,
+    JobProvider,
+    ValidaCadastroProvider
   ]
 })
 export class AppModule {}
