@@ -14,6 +14,7 @@ import { User } from "../../../model/user";
 import { UserDataProvider } from "../../../providers/user-data/user-data";
 import { HomePage } from "../../home/home";
 import { JobType } from "./../../../model/job";
+import { PersonSkinColor, PersonEyeColor, PersonGender, PersonHairColor } from "../../../model/modelAttributes";
 
 @IonicPage()
 @Component({
@@ -28,7 +29,12 @@ export class MyProfilePage {
   companyForm: FormGroup;
   maxDate: any;
   loading: Loading;
+
   jobPreferences: Array<{ name: string; value: JobType; checked: boolean }>;
+  skinColors: Array<{ name: string; value: PersonSkinColor }>;
+  eyeColors: Array<{ name: string; value: PersonEyeColor }>;
+  genders: Array<{ name: string; value: PersonGender }>;
+  hairColors: Array<{ name: string; value: PersonHairColor }>;
 
   constructor(
     public navCtrl: NavController,
@@ -38,7 +44,7 @@ export class MyProfilePage {
     private toastCtrl: ToastController,
     private formBuilder: FormBuilder
   ) {
-    this.getJobTypes();
+    this.populateSelects();
     this.getLoggedUser();
     this.validateMinDate();
   }
@@ -53,25 +59,6 @@ export class MyProfilePage {
   }
 
   ionViewDidLoad() {}
-
-  getJobTypes(){
-    this.jobPreferences = [
-      { name: "Bandeirada", value: JobType.Bandeirada, checked: false },
-      { name: "Blitz", value: JobType.Blitz , checked: false },
-      { name: "Book Fotográfico", value: JobType.BookFotografico , checked: false },
-      { name: "Carro de Som", value: JobType.CarroDeSom , checked: false },
-      { name: "Degustação", value: JobType.Degustação , checked: false },
-      { name: "Distribuição de Brindes", value: JobType.DistribuicaoDeBrindes , checked: false },
-      { name: "Equipe de Massoterapia", value: JobType.EquipeDeMassoterapia , checked: false },
-      { name: "Figurante para TV", value: JobType.FiguranteParaTV , checked: false },
-      { name: "Gravação de Spot", value: JobType.GravacaoDeSpot , checked: false },
-      { name: "Modelos", value: JobType.Modelos , checked: false },
-      { name: "Receptivo", value: JobType.Receptivo , checked: false },
-      { name: "Repositores", value: JobType.Repositores , checked: false },
-      { name: "Panfletagem", value: JobType.Panfletagem , checked: false },
-      { name: "Vitrine Viva", value: JobType.VitrineViva , checked: false },
-    ]
-  }
 
   getLoggedUser() {
     this.createLoading("Recuperando dados do usuário...", 10000);
@@ -173,5 +160,52 @@ export class MyProfilePage {
         position: "bottom"
       })
       .present();
+  }
+
+  populateSelects() {
+    this.jobPreferences = [
+      { name: "Bandeirada", value: JobType.Bandeirada, checked: false },
+      { name: "Blitz", value: JobType.Blitz , checked: false },
+      { name: "Book Fotográfico", value: JobType.BookFotografico , checked: false },
+      { name: "Carro de Som", value: JobType.CarroDeSom , checked: false },
+      { name: "Degustação", value: JobType.Degustacao , checked: false },
+      { name: "Distribuição de Brindes", value: JobType.DistribuicaoDeBrindes , checked: false },
+      { name: "Equipe de Massoterapia", value: JobType.EquipeDeMassoterapia , checked: false },
+      { name: "Figurante para TV", value: JobType.FiguranteParaTV , checked: false },
+      { name: "Gravação de Spot", value: JobType.GravacaoDeSpot , checked: false },
+      { name: "Modelos", value: JobType.Modelos , checked: false },
+      { name: "Receptivo", value: JobType.Receptivo , checked: false },
+      { name: "Repositores", value: JobType.Repositores , checked: false },
+      { name: "Panfletagem", value: JobType.Panfletagem , checked: false },
+      { name: "Vitrine Viva", value: JobType.VitrineViva , checked: false },
+    ]
+
+    this.skinColors = [
+      { name: "Asiatica", value: PersonSkinColor.Asiatica },
+      { name: "Branca", value: PersonSkinColor.Branca },
+      { name: "Indígena", value: PersonSkinColor.Indigena },
+      { name: "Negra", value: PersonSkinColor.Negra },
+      { name: "Parda", value: PersonSkinColor.Parda }
+    ];
+
+    this.eyeColors = [
+      { name: "Azul", value: PersonEyeColor.Azul },
+      { name: "Castanho", value: PersonEyeColor.Castanho },
+      { name: "Mel", value: PersonEyeColor.Mel },
+      { name: "Preto", value: PersonEyeColor.Preto },
+      { name: "Verde", value: PersonEyeColor.Verde }
+    ];
+
+    this.genders = [
+      { name: "Feminino", value: PersonGender.Feminino },
+      { name: "Masculino", value: PersonGender.Masculino }
+    ];
+
+    this.hairColors = [
+      { name: "Castanho", value: PersonHairColor.Castanho },
+      { name: "Loiro", value: PersonHairColor.Loiro },
+      { name: "Ruivo", value: PersonHairColor.Ruivo },
+      { name: "Preto", value: PersonHairColor.Preto }
+    ];
   }
 }

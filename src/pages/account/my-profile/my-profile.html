@@ -40,9 +40,12 @@
         floating
         color="promux-color">Gênero</ion-label>
         <ion-select
-        formControlName="gender">
-          <ion-option value="f">Feminino</ion-option>
-          <ion-option value="m">Masculino</ion-option>
+          formControlName="gender">
+          <ion-option
+          *ngFor="let g of genders"
+          value="{{g.value}}">
+          {{g.name}}
+          </ion-option>
         </ion-select>
       </ion-item>
 
@@ -76,25 +79,12 @@
         floating
         color="promux-color">Cor da Pele</ion-label>
         <ion-select
-        formControlName="skinColor">
-          <ion-option value="a">Asiática</ion-option>
-          <ion-option value="b">Branca</ion-option>
-          <ion-option value="i">Indígena</ion-option>
-          <ion-option value="n">Negra</ion-option>
-          <ion-option value="p">Parda</ion-option>
-        </ion-select>
-      </ion-item>
-
-      <ion-item>
-        <ion-label
-        floating
-        color="promux-color">Cor do Cabelo</ion-label>
-        <ion-select
-        formControlName="hairColor">
-          <ion-option value="lc">Loiro Claro</ion-option>
-          <ion-option value="le">Loiro Escuro</ion-option>
-
-          <ion-option value="m">Male</ion-option>
+          formControlName="skinColor">
+          <ion-option
+          *ngFor="let s of skinColors"
+          value="{{s.value}}">
+          {{s.name}}
+          </ion-option>
         </ion-select>
       </ion-item>
 
@@ -103,13 +93,33 @@
         floating
         color="promux-color">Cor dos Olhos</ion-label>
         <ion-select
-        formControlName="eyeColor">
-          <ion-option value="f">Female</ion-option>
-          <ion-option value="m">Male</ion-option>
+          formControlName="eyeColor">
+          <ion-option
+          *ngFor="let e of eyeColors"
+          value="{{e.value}}">
+          {{e.name}}
+          </ion-option>
         </ion-select>
       </ion-item>
+
+      <ion-item>
+        <ion-label
+        floating
+        color="promux-color">Cor do Cabelo</ion-label>
+        <ion-select
+          formControlName="hairColor">
+          <ion-option
+          *ngFor="let h of hairColors"
+          value="{{h.value}}">
+          {{h.name}}
+          </ion-option>
+        </ion-select>
+      </ion-item>
+
       <hr>
+
       <h6>Preferência de Jobs</h6>
+
       <ion-item *ngFor="let p of jobPreferences" no-lines>
         <ion-label>{{p.name}}</ion-label>
         <ion-checkbox
