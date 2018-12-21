@@ -1,14 +1,20 @@
 import { Component } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from "@angular/forms";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
+
 import { Job } from "../../../model/job";
-import { ValidaCadastroProvider } from '../../../providers/valida-cadastro/valida-cadastro';
 import {
   PersonEyeColor,
   PersonGender,
   PersonHairColor,
   PersonSkinColor
 } from "../../../model/modelAttributes";
+import { ValidaCadastroProvider } from "../../../providers/valida-cadastro/valida-cadastro";
 
 @IonicPage()
 @Component({
@@ -17,7 +23,7 @@ import {
 })
 export class PlanStep2Page {
   step2Form: FormGroup;
-  job: any;
+  job: Job;
 
   skinColors: Array<{ name: string; value: PersonSkinColor }>;
   eyeColors: Array<{ name: string; value: PersonEyeColor }>;
@@ -28,36 +34,43 @@ export class PlanStep2Page {
     public navCtrl: NavController,
     public navParams: NavParams,
     private formBuilder: FormBuilder,
-    private cadastro: ValidaCadastroProvider,
+    private cadastro: ValidaCadastroProvider
   ) {
     this.job = JSON.parse(localStorage.getItem("job"));
     this.createForm();
     this.populateSelects();
   }
 
-  ionViewDidLoad() {
-
-  }
+  ionViewDidLoad() {}
 
   submitStep2() {
+    this.updateJobData();
     this.cadastro.setEnableStep1(false);
-    this.cadastro.setEnableStep2(true);
-    localStorage.setItem("job", JSON.stringify(this.step2Form.value));
+    this.cadastro.setEnableStep2(false);
+    this.cadastro.setEnableStep3(true);
+    localStorage.setItem("job", JSON.stringify(this.job));
     this.navCtrl.parent.select(2);
   }
 
   createForm() {
     this.step2Form = this.formBuilder.group({
-      numPeople: [""],
-      gender: [""],
-      hairColor: [""],
-      eyeColor: [""],
-      skinColor: [""]
+      numPeople: new FormControl(this.job.numPeople || "", [
+        Validators.required
+      ]),
+      gender: new FormControl(this.job.gender || "", [Validators.required]),
+      hairColor: new FormControl(this.job.hairColor || "", [
+        Validators.required
+      ]),
+      eyeColor: new FormControl(this.job.eyeColor || "", [Validators.required]),
+      skinColor: new FormControl(this.job.skinColor || "", [
+        Validators.required
+      ])
     });
   }
 
   populateSelects() {
     this.skinColors = [
+      { name: "Indiferente", value: PersonSkinColor.Indiferente },
       { name: "Asiatica", value: PersonSkinColor.Asiatica },
       { name: "Branca", value: PersonSkinColor.Branca },
       { name: "Indígena", value: PersonSkinColor.Indigena },
@@ -66,6 +79,7 @@ export class PlanStep2Page {
     ];
 
     this.eyeColors = [
+      { name: "Indiferente", value: PersonEyeColor.Indiferente },
       { name: "Azul", value: PersonEyeColor.Azul },
       { name: "Castanho", value: PersonEyeColor.Castanho },
       { name: "Mel", value: PersonEyeColor.Mel },
@@ -74,11 +88,13 @@ export class PlanStep2Page {
     ];
 
     this.genders = [
+      { name: "Indiferente", value: PersonGender.Indiferente },
       { name: "Feminino", value: PersonGender.Feminino },
       { name: "Masculino", value: PersonGender.Masculino }
     ];
 
     this.hairColors = [
+      { name: "Indiferente", value: PersonHairColor.Indiferente },
       { name: "Castanho", value: PersonHairColor.Castanho },
       { name: "Loiro", value: PersonHairColor.Loiro },
       { name: "Ruivo", value: PersonHairColor.Ruivo },
@@ -87,9 +103,20 @@ export class PlanStep2Page {
   }
 
   returnStep1() {
+    this.updateJobData();
     this.cadastro.setEnableStep1(true);
     this.cadastro.setEnableStep2(false);
     localStorage.setItem("job", JSON.stringify(this.job));
     this.navCtrl.parent.select(0);
+  }
+
+  updateJobData() {
+    let formValues = this.step2Form.value;
+
+    this.job.numPeople = formValues.numPeople;
+    this.job.gender = formValues.gender;
+    this.job.eyeColor = formValues.eyeColor;
+    this.job.skinColor = formValues.skinColor;
+    this.job.hairColor = formValues.hairColor;
   }
 }
