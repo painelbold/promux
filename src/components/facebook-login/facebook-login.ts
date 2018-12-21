@@ -1,8 +1,8 @@
 import { Component } from "@angular/core";
 import { Facebook } from "@ionic-native/facebook";
-import firebase from "firebase";
+import * as firebase from 'firebase/app'
 import { UserDataProvider } from "../../providers/user-data/user-data";
-import { NavController } from "ionic-angular";
+import { NavController, Loading, LoadingController } from 'ionic-angular';
 import { RegisterComplementPage } from "../../pages/account/register-complement/register-complement";
 
 @Component({
@@ -10,10 +10,13 @@ import { RegisterComplementPage } from "../../pages/account/register-complement/
   templateUrl: "facebook-login.html"
 })
 export class FacebookLoginComponent {
+  loading: Loading;
+
   constructor(
     public facebook: Facebook,
     private udProvider: UserDataProvider,
     private nav: NavController,
+    private loadingCtrl: LoadingController
     ) {}
 
   async doFacebookLogin() {
@@ -39,7 +42,9 @@ export class FacebookLoginComponent {
   }
 
   async checkUser(user: any) {
+    this.createLoading("Carregando dados do usuário...", 10000)
     const ud = this.udProvider.getUserData().subscribe(u => {
+      this.loading.dismiss();
       ud.unsubscribe();
 
       if (!u.key) {
@@ -48,5 +53,13 @@ export class FacebookLoginComponent {
         });
       }
     });
+  }
+
+  createLoading(msg: string, duration: number) {
+    this.loading = this.loadingCtrl.create({
+      content: msg,
+      duration: duration
+    });
+    this.loading.present();
   }
 }
