@@ -1,12 +1,13 @@
-import "rxjs/Rx";
+import 'rxjs/Rx';
 
-import { Injectable } from "@angular/core";
-import { AngularFireDatabase } from "angularfire2/database";
+import { Injectable } from '@angular/core';
+import { AngularFireDatabase } from 'angularfire2/database';
+import firebase from 'firebase';
 
-import { User } from "../../model/user";
-import { AuthServiceProvider } from "../auth-service/auth-service";
-import { IUser } from "../../model/IUser";
-import { Company } from "../../model/company";
+import { Company } from '../../model/company';
+import { IUser } from '../../model/IUser';
+import { User } from '../../model/user';
+import { AuthServiceProvider } from '../auth-service/auth-service';
 
 @Injectable()
 export class UserDataProvider {
@@ -19,6 +20,8 @@ export class UserDataProvider {
 
   saveUserData(user: IUser) {
     return new Promise((resolve, reject) => {
+      user.dateCreated = firebase.database.ServerValue.TIMESTAMP;
+
       if (user.key) {
         this.db
           .list(this.PATH)
