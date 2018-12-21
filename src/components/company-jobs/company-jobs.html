@@ -1,0 +1,16 @@
+<content padding>
+  <ion-list>
+    <ion-item *ngFor="let j of jobs">
+      <ion-row>
+        <ion-col col-9>
+          {{j.title}}
+        </ion-col>
+        <ion-col col-3>
+          {{j.dateCreated | date:'dd/MM'}}
+        </ion-col>
+      </ion-row>
+      <p>Local: {{j.local}}</p>
+      <p>Tipo: {{getTypeName(j.type)}}</p>
+    </ion-item>
+  </ion-list>
+</content>

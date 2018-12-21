@@ -1,5 +1,7 @@
 <promux-header></promux-header>
 
 <ion-content padding>
-
+  <div class="company-jobs" *ngIf="loggedUser.type == 1">
+    <company-jobs></company-jobs>
+  </div>
 </ion-content>
