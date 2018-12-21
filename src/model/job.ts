@@ -1,24 +1,42 @@
-export class Job{
+import { PersonGender, PersonEyeColor, PersonHairColor, PersonSkinColor } from './modelAttributes';
+export class Job {
+  title: string;
   companyKey: string;
+  companyName: string;
   key: string;
   description: string;
   local: string;
   numPeople: number;
+  status: JobStatus;
+  type: JobType;
+  gender: PersonGender;
+  hairColor: PersonHairColor;
+  eyeColor: PersonEyeColor;
+  skinColor: PersonSkinColor;
+  dateCreated: any;
+  startDate: Date;
+  endDate: Date;
 }
 
-export enum JobType{
+export enum JobType {
   Bandeirada,
   Blitz,
-  BookFotográfico,
+  BookFotografico,
   CarroDeSom,
-  Degustação,
-  DistribuiçãoDeBrindes,
+  Degustacao,
+  DistribuicaoDeBrindes,
   EquipeDeMassoterapia,
   FiguranteParaTV,
-  GravaçãoDeSpot,
+  GravacaoDeSpot,
   Modelos,
   Receptivo,
   Repositores,
   Panfletagem,
-  VitrineViva,
+  VitrineViva
+}
+
+export enum JobStatus {
+  AExecutar,
+  EmExecucao,
+  Executado
 }
