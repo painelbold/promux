@@ -12,7 +12,9 @@ export class User implements IUser {
   hairColor: string;
   dateOfBirth: Date;
   completeProfile: boolean;
-  type: UserType
+  type: UserType;
+  dateCreated: any;
+  jobPreferences: Array<number>;
 
   constructor(fullName: string, email: string, dateOfBirth: Date){
     this.fullName = fullName;
