@@ -8,5 +8,38 @@
 
 
 <ion-content padding>
-
+    <h5>Resumo do Job</h5>
+      <p>{{job.title}}</p>
+      <p>Descrição: {{job.description}}</p>
+      <p *ngIf="job.endDate">Período: {{job.startDate | date:'dd/MM/yyyy'}} a {{job.endDate | date:'dd/MM/yyyy'}}</p>
+      <p *ngIf="!job.endDate">Data: {{job.startDate | date:'dd/MM/yyyy'}}</p>
+      <p>Tipo: {{jobType}}</p>
+      <p>Quantidade de Pessoas: {{job.numPeople}}</p>
+      <p>Gênero: {{personAttributes.gender}}</p>
+      <p>Cor da Pele: {{personAttributes.skinColor}}</p>
+      <p>Cor do Cabelo: {{personAttributes.hairColor}}</p>
+      <p>Cor dos Olhos: {{personAttributes.eyeColor}}</p>
+      <ion-buttons end>
+          <button
+          ion-button
+          icon-start
+          bottom
+          color="promux-color"
+          class="submit-btn button-round-md"
+          id="anterior"
+          (click)="returnStep2()"
+          outline
+          type="button"
+          >
+          <ion-icon name="arrow-dropleft"></ion-icon>
+          Anterior
+          </button>
+        <button
+        ion-button
+        color="promux-color"
+        class="submit-btn button-round-md"
+        (click)="confirmJob()">
+        Confirmar
+      </button>
+    </ion-buttons>
 </ion-content>
