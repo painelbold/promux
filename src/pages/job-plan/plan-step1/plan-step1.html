@@ -22,22 +22,42 @@
       </ion-item>
       <ion-item>
         <ion-label floating color="promux-color">Descrição</ion-label>
-        <ion-input
+        <ion-textarea
         type="text"
         name="description"
         formControlName="description">
-        </ion-input>
+        </ion-textarea>
       </ion-item>
       <ion-item>
         <ion-label floating color="promux-color">Tipo</ion-label>
         <ion-select
         formControlName="type">
         <ion-option
+        color="promux-color"
         *ngFor="let j of jobTypes"
         value="{{j.value}}">
         {{j.name}}
         </ion-option>
         </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label floating color="promux-color">Data Inicial</ion-label>
+        <ion-datetime
+          displayFormat="DD/MM/YYYY"
+          [min]="minDate"
+          [max]="maxCalDate"
+          (ionChange)="dtInicioChange()"
+          formControlName="startDate"
+          ></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label floating color="promux-color">Data Final (opcional)</ion-label>
+        <ion-datetime
+        displayFormat="DD/MM/YYYY"
+        [min]="minEndDate"
+        [max]="maxCalDate"
+        formControlName="endDate"
+        ></ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label floating color="promux-color">Localização</ion-label>
