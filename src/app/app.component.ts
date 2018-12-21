@@ -47,12 +47,13 @@ export class MyApp {
       if (user) {
         this.menu.enable(true, "sideMenu");
 
-        localStorage.setItem("loggedUserKey", user.uid);
         this.rootPage = HomePage;
 
         const udObserver = udProvider.getUserData().subscribe(user => {
           if (user.key) {
             this.loggedUser = user;
+            localStorage.setItem("loggedUser", JSON.stringify(user));
+            localStorage.setItem("loggedUserKey", user.key);
 
             this.createPages();
 
@@ -73,7 +74,7 @@ export class MyApp {
       ];
     } else if (this.loggedUser.type == UserType.Empresa) {
       this.pages = [
-        { title: "Novo job", component: PlanPage, icon: "create" }
+        { title: "Novo Job", component: PlanPage, icon: "create" }
       ];
     }
 
