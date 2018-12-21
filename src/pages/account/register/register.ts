@@ -113,7 +113,7 @@ export class RegisterPage {
       });
   }
 
-  saveUserData(user: User) {
+  saveUserData(user: IUser) {
     this.createLoading("Salvando dados do usuário...", 10000);
 
     this.udProvider.saveUserData(user);
