@@ -25,6 +25,7 @@
         <ion-select
           formControlName="gender">
           <ion-option
+          color="promux-color"
           *ngFor="let g of genders"
           value="{{g.value}}">
           {{g.name}}
@@ -36,6 +37,7 @@
         <ion-select
           formControlName="skinColor">
           <ion-option
+          color="promux-color"
           *ngFor="let s of skinColors"
           value="{{s.value}}">
           {{s.name}}
@@ -47,6 +49,7 @@
         <ion-select
           formControlName="eyeColor">
           <ion-option
+          color="promux-color"
           *ngFor="let e of eyeColors"
           value="{{e.value}}">
           {{e.name}}
@@ -58,6 +61,7 @@
       <ion-select
         formControlName="hairColor">
         <ion-option
+        color="promux-color"
         *ngFor="let h of hairColors"
         value="{{h.value}}">
         {{h.name}}
