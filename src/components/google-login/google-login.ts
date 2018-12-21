@@ -60,6 +60,7 @@ export class GoogleLoginComponent {
           this.checkUser(res);
         });
     } catch (err) {
+      this.loading.dismiss();
       this.createToast("Erro ao entrar na conta.", 2000);
       console.log(err);
     }
@@ -75,6 +76,7 @@ export class GoogleLoginComponent {
           this.checkUser(res);
         });
     } catch (err) {
+      this.loading.dismiss();
       this.createToast("Erro ao entrar na conta.", 2000);
       console.log(err);
     }
